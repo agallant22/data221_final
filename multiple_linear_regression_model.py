@@ -88,4 +88,18 @@ from sklearn.metrics import mean_squared_error
 
 dataset = pandas.read_csv("cleaned_car_details_dataset.csv")
 
-print(dataset.head())       # Testing clean dataset
+dataset = pandas.get_dummies(dataset, drop_first = True)        # Converts categorical variables to binary
+
+# print(dataset.head())       # Testing clean dataset
+
+X = dataset.drop("Price", axis = 1)
+y = dataset["Price"]
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+model = LinearRegression()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
