@@ -27,7 +27,8 @@ for cc in data_frame["Engine"]:
         cleaned_engine.append(cc)
 #new engine data
 data_frame["Engine"] = cleaned_engine
-#fill in missing values with the median
+#fill in missing values with the median,convert text to numeric values
+data_frame["Engine"] = pandas.to_numeric(data_frame["Engine"], errors="coerce")
 median_for_engine = data_frame["Engine"].median()
 data_frame["Engine"] = data_frame["Engine"].fillna(median_for_engine)
 
@@ -48,5 +49,24 @@ original_data = data_frame.copy()
 #converts text into values
 data_frame = pandas.get_dummies(data_frame, drop_first = True)
 
+#split into x and y
+X = data_frame.drop(columns = ["Price"])
+y = data_frame["Price"]
 
+#for the copied dataframe
+X_original = original_data.drop(columns = ["Price"])
 
+#train test split, X_train_original and X_test_original are so cars can be compared later
+X_train, X_test, y_train, y_test, X_train_original, X_test_original = train_test_split(X, y, X_original, test_size = 0.3, random_state = 42)
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+#build, train, predict
+model = KNeighborsRegressor(n_neighbors = 3)
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+mae = mean_absolute_error(y_test, y_pred)
+sse = sum((y_test - y_pred) ** 2)
+
+print("MAE: ", mae)
+print("SSE: ", sse)
