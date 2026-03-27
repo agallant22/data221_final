@@ -114,7 +114,7 @@ print("Test car: ")
 print(X_test_original.iloc[similar_car])
 
 print("5 most similar cars: ")
-print(X_train_original.iloc[indices[0]])
+print(X_train_original.iloc[indices[0]].to_string())
 
 print("prices of 5 most similar cars: ")
 print(y_train.iloc[indices[0]])
