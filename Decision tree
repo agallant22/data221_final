@@ -1,0 +1,2 @@
+import pandas
+dataset = pandas.read_csv("cleaned_car_details_dataset.csv")
