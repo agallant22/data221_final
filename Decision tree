@@ -1,5 +1,8 @@
 import pandas
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+
+
 # load the cleaned data set
 dataset = pandas.read_csv("cleaned_car_details_dataset.csv")
 
@@ -9,3 +12,5 @@ y = dataframe["Price"]                  # Target
 #converts text into values
 x = pandas.get_dummies(data_frame, drop_first = True)
 X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.3,random_state=42)
+model = DecisionTreeRegressor(random_state=42)
+model.fit(X_train, y_train)
