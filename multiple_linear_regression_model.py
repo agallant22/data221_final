@@ -93,18 +93,20 @@ dataset = dataset.drop(columns = ["Model"])         # Too many different models,
 
 dataset = pandas.get_dummies(dataset, drop_first = True)        # Converts categorical variables to binary
 
-# print(dataset.head())       # Testing clean dataset
-
+# Features
 X = dataset.drop("Price", axis = 1)
-y = dataset["Price"] / 1000         # Scale price to thousands
+y = dataset["Price"]         # Scale price to thousands
 
 # Train-test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
+# Initialize
 model = LinearRegression()
 
+# Train model
 model.fit(X_train, y_train)
 
+# Prediction
 y_pred = model.predict(X_test)
 
 # Evaluation
