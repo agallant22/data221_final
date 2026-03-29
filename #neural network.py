@@ -55,3 +55,20 @@ model.compile(
     loss="mse", #Mean Squared Error loss
     metrics=[tf.keras.metrics.MeanAbsoluteError(name="mae"),] #Mean Abs Error as a metric to check if model is training well on the epochs
 )
+
+# Train model
+training_history = model.fit(
+    X_train_scaled,
+    train_y,
+    epochs=100,
+)
+
+#Predict on test set
+y_pred = model.predict(X_test_scaled, verbose=0).flatten()
+
+#Evaluation 
+mae = mean_absolute_error(test_y, y_pred)
+sse = ((test_y - y_pred) ** 2).sum()
+
+print("MAE:", mae)
+print("SSE:", sse)
