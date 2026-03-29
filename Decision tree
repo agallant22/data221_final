@@ -44,7 +44,4 @@ top5 = importances_sorted.head(5)
 print("\nTop 5 Features:")
 print(top5)
 
-# Weakest Features
-weakest = importances_sorted.tail(1)
-print("\nWeakest Features:")
-print(weakest)
+
