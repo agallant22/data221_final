@@ -97,7 +97,7 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 #build, train, predict
-model = KNeighborsRegressor(n_neighbors = 5, weights = "distance")
+model = KNeighborsRegressor(n_neighbors = 3, weights = "distance")
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 mae = mean_absolute_error(y_test, y_pred)
@@ -106,17 +106,17 @@ sse = sum((y_test - y_pred) ** 2)
 print("MAE: ", round(mae, 2))
 print("SSE: ", round(sse, 2))
 
-similar_car = 100
+similar_car = 101
 test_car = X_test[similar_car:similar_car+1]
-indices = model.kneighbors(test_car, n_neighbors = 5, return_distance = False)
+indices = model.kneighbors(test_car, n_neighbors =3, return_distance = False)
 
 print("Test car: ")
 print(X_test_original.iloc[similar_car])
 
-print("5 most similar cars: ")
+print("3 most similar cars: ")
 print(X_train_original.iloc[indices[0]].to_string())
 
-print("prices of 5 most similar cars: ")
+print("prices of 3 most similar cars: ")
 print(y_train.iloc[indices[0]])
 
 print("model prediction: ")
