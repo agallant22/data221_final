@@ -45,3 +45,31 @@ print("\nTop 5 Features:")
 print(top5)
 
 
+
+
+
+
+
+depths = list(range(1, 21))  # Test max_depth from 1 to 20
+mae_values = []
+
+for depth in depths:
+    model = DecisionTreeRegressor(max_depth=depth, random_state=42)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    mae = mean_absolute_error(y_test, y_pred)
+    mae_values.append(mae)
+
+# Find the best depth
+best_depth = depths[mae_values.index(min(mae_values))]
+print(f"Best max_depth based on MAE: {best_depth}")
+
+# Plot MAE vs max_depth
+plt.figure(figsize=(10,6))
+plt.plot(depths, mae_values, marker='o', color='skyblue')
+plt.title("Decision Tree Max Depth vs MAE")
+plt.xlabel("Max Depth")
+plt.ylabel("Mean Absolute Error (MAE)")
+plt.xticks(depths)
+plt.grid(True)
+plt.show()
