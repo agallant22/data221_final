@@ -124,3 +124,5 @@ print(y_pred[similar_car])
 
 print("Actual price: ")
 print(y_test.iloc[similar_car])
+
+//https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsRegressor.html
